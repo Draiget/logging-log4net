@@ -103,45 +103,6 @@ namespace log4net.Core
 #if NETCF
 			s_repositorySelector = new CompactRepositorySelector(typeof(log4net.Repository.Hierarchy.Hierarchy));
 			return;
-#elif !NETSTANDARD1_3
-			// Look for the RepositorySelector type specified in the AppSettings 'log4net.RepositorySelector'
-			string appRepositorySelectorTypeName = SystemInfo.GetAppSetting("log4net.RepositorySelector");
-			if (appRepositorySelectorTypeName != null && appRepositorySelectorTypeName.Length > 0)
-			{
-				// Resolve the config string into a Type
-				Type appRepositorySelectorType = null;
-				try
-				{
-					appRepositorySelectorType = SystemInfo.GetTypeFromString(appRepositorySelectorTypeName, false, true);
-				}
-				catch(Exception ex)
-				{
-					LogLog.Error(declaringType, "Exception while resolving RepositorySelector Type ["+appRepositorySelectorTypeName+"]", ex);
-				}
-
-				if (appRepositorySelectorType != null)
-				{
-					// Create an instance of the RepositorySelectorType
-					object appRepositorySelectorObj = null;
-					try
-					{
-						appRepositorySelectorObj = Activator.CreateInstance(appRepositorySelectorType);
-					}
-					catch(Exception ex)
-					{
-						LogLog.Error(declaringType, "Exception while creating RepositorySelector ["+appRepositorySelectorType.FullName+"]", ex);
-					}
-
-					if (appRepositorySelectorObj != null && appRepositorySelectorObj is IRepositorySelector)
-					{
-						s_repositorySelector = (IRepositorySelector)appRepositorySelectorObj;
-					}
-					else
-					{
-						LogLog.Error(declaringType, "RepositorySelector Type ["+appRepositorySelectorType.FullName+"] is not an IRepositorySelector");
-					}
-				}
-			}
 #endif
 			// Create the DefaultRepositorySelector if not configured above 
 			if (s_repositorySelector == null)

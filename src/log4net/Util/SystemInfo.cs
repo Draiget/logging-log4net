@@ -80,23 +80,6 @@ namespace log4net.Util
 			string nullText = DEFAULT_NULL_TEXT;
 			string notAvailableText = DEFAULT_NOT_AVAILABLE_TEXT;
 
-#if !NETCF
-			// Look for log4net.NullText in AppSettings
-			string nullTextAppSettingsKey = SystemInfo.GetAppSetting("log4net.NullText");
-			if (nullTextAppSettingsKey != null && nullTextAppSettingsKey.Length > 0)
-			{
-				LogLog.Debug(declaringType, "Initializing NullText value to [" + nullTextAppSettingsKey + "].");
-				nullText = nullTextAppSettingsKey;
-			}
-
-			// Look for log4net.NotAvailableText in AppSettings
-			string notAvailableTextAppSettingsKey = SystemInfo.GetAppSetting("log4net.NotAvailableText");
-			if (notAvailableTextAppSettingsKey != null && notAvailableTextAppSettingsKey.Length > 0)
-			{
-				LogLog.Debug(declaringType, "Initializing NotAvailableText value to [" + notAvailableTextAppSettingsKey + "].");
-				notAvailableText = notAvailableTextAppSettingsKey;
-			}
-#endif
 			s_notAvailableText = notAvailableText;
 			s_nullText = nullText;
 		}

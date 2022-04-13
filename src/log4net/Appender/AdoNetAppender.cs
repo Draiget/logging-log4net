@@ -699,17 +699,6 @@ namespace log4net.Appender
 			}
 #endif
 
-			if (AppSettingsKey != null && AppSettingsKey.Length > 0)
-			{
-				connectionStringContext = "AppSettingsKey";
-				string appSettingsConnectionString = SystemInfo.GetAppSetting(AppSettingsKey);
-				if (appSettingsConnectionString == null || appSettingsConnectionString.Length == 0)
-				{
-					throw new LogException("Unable to find [" + AppSettingsKey + "] AppSettings key.");
-				}
-				return appSettingsConnectionString;
-			}
-
 			connectionStringContext = "Unable to resolve connection string from ConnectionString, ConnectionStrings, or AppSettings.";
 			return string.Empty;
 		}
